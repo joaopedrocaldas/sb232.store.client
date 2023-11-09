@@ -15,40 +15,42 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.persistence.PostUpdate;
 
 @CrossOrigin(origins = "*")
 @RestController
+@RequestMapping("/client")
 public class ClientResource {
 
     @Autowired
     private ClientService clientService;
 
-    @GetMapping("/client")
+    @GetMapping("/")
     public List<ClientOut> list() {
         return clientService.list().stream().map(ClientParser::to).toList();
     }
 
-    @GetMapping("/client/{id}")
+    @GetMapping("/{id}")
     public ClientOut get(@PathVariable(required = true) String id) {
         Client found = clientService.find(id);
         return found == null ? null : ClientParser.to(found);
     }
 
-    @DeleteMapping("/client/{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable(required = true) String id) {
         clientService.delete(id);
     }
 
-    @PostMapping("/client")
+    @PostMapping("/")
     public void create(@RequestBody ClientIn in) {
         clientService.create(ClientParser.to(in));
 
     }
 
-    @PutMapping("/client/{id}")
+    @PutMapping("/{id}")
     public void update(@PathVariable(required = true) String id, @RequestBody ClientIn in) {
         Client old = clientService.find(id);
         Client novo = ClientParser.to(in);
