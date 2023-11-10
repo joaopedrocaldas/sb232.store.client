@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.persistence.PostUpdate;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin
 @RestController
 @RequestMapping("/client")
 public class ClientResource {
